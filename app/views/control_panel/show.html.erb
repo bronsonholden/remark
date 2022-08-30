@@ -1,0 +1,56 @@
+<div calss="my-4">
+  <nav>
+    <ul>
+      <li><%= link_to "Articles", articles_path, class: "hover:underline" %></li>
+    </ul>
+  </nav>
+<div>
+<div class="my-4">
+  <p class="text-lg font-medium">
+    JVM memory usage
+  </p>
+  <% used = @elastic_search.cluster.stats.dig("nodes", "jvm", "mem", "heap_used_in_bytes").to_f / (1 << 20) %>
+  <% max = @elastic_search.cluster.stats.dig("nodes", "jvm", "mem", "heap_max_in_bytes").to_f / (1 << 20) %>
+  <p>
+    Used: <%= used.round(2) %> MiB
+  </p>
+  <p>
+    Max: <%= max.round(2) %> MiB
+  </p>
+  <p>
+    Used: <%= ((used / max) * 100).round(1) %>%
+  </p>
+</div>
+
+<div class="my-4">
+  <p class="text-lg font-medium">
+    OS memory usage
+  </p>
+  <% used = @elastic_search.cluster.stats.dig("nodes", "os", "mem", "used_in_bytes").to_f / (1 << 20) %>
+  <% max = @elastic_search.cluster.stats.dig("nodes", "os", "mem", "total_in_bytes").to_f / (1 << 20) %>
+  <p>
+    Used: <%= used.round(2) %> MiB
+  </p>
+  <p>
+    Max: <%= max.round(2) %> MiB
+  </p>
+  <p>
+    Used: <%= ((used / max) * 100).round(1) %>%
+  </p>
+</div>
+
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Cluster health
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@elastic_search.cluster.health) %></pre>
+</div>
+
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Cluster stats
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@elastic_search.cluster.stats) %></pre>
+</div>

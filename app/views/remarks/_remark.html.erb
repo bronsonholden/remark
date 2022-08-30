@@ -1,0 +1,184 @@
+<% starting_photo_index = local_assigns.fetch(:starting_photo_index, 0) %>
+<%= turbo_frame_tag "remark-#{remark.id}" do %>
+  <div class="mb-12 sm:mb-8 sm:rounded-lg sm:border border-gray-300 sm:p-4 dark:border-gray-700 dark:sm:bg-gray-800">
+    <div class="flex items-center">
+      <% if remark.user.avatar.present? %>
+        <img
+          src="<%= remark.user.avatar.url %>"
+          srcset="<%= remark.user.thumbnail_url(:sm) %> 480w, <%= remark.user.thumbnail_url(:md) %> 1080w"
+          aria-label="<%= remark.user.full_name %>"
+          class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full mr-3"
+        >
+      <% else %>
+        <div class="mr-3 text-center leading-[0]">
+          <%= heroicon "user-circle",
+                variant: :outline,
+                options: { class: "block h-12 w-12 inline align-text-top" },
+                path_options: { stroke_width: 1 }
+          %>
+        </div>
+      <% end %>
+      <div>
+        <h2 class="block font-semibold mr-2">
+          <% user_url = if signed_in? %>
+            <% current_user.id == remark.user_id ? profile_path : user_path(remark.user) %>
+          <% else %>
+            <% user_path(remark.user) %>
+          <% end %>
+          <%=
+            link_to remark.user.full_name,
+              user_url,
+              aria: {label: remark.user.full_name},
+              data: { turbo_frame: "_top" },
+              class: "text-gray-500 hover:text-slgrayate-800 dark:text-gray-300 dark:hover:text-gray-100"
+          %>
+        </h2>
+        <p class="text-sm text-gray-400 block dark:text-gray-400">
+          <%= distance_of_time_in_words(Time.now, remark.created_at) %> ago
+        </p>
+      </div>
+      <div class="grow"></div>
+      <% if signed_in? && current_user.admin? %>
+        <div>
+          <%=
+            link_to debug_remark_path(remark),
+              aria: {label: "Debug Remark"},
+              data: { turbo_frame: "_top" },
+              class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do %>
+            <%=
+              heroicon "cog",
+                variant: :outline,
+                options: { class: "block h-5 w-5 inline align-text-top" },
+                path_options: { stroke_width: 2 }
+            %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if signed_in? %>
+        <% reacted = current_user.reactions.like.where(remark: remark).any? %>
+        <div>
+          <%=
+            button_to reactions_remark_path(remark, search_id: @search_id),
+              method: reacted ? :delete : :put,
+              aria: {label: reacted ? "Remove like" : "Like this Remark"},
+              class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do
+          %>
+            <%=
+              heroicon "heart",
+                variant: reacted ? :solid : :outline,
+                options: { class: "block h-5 w-5 inline align-text-top" },
+                path_options: { stroke_width: 2 }
+            %>
+          <% end %>
+        </div>
+      <% end %>
+      <div>
+        <%=
+          link_to remark_path(remark),
+            aria: {label: "Remark #{remark.id} by #{remark.user.full_name}"},
+            data: {
+              search_id: @search_id,
+              remark_id: remark.id,
+              controller: "search-conversion",
+              action: "search-conversion#convert",
+              turbo_frame: "_top"
+            },
+            class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do %>
+          <%=
+            heroicon "chat-alt-2",
+              variant: :outline,
+              options: { class: "block h-5 w-5 inline align-text-top" },
+              path_options: { stroke_width: 2 }
+          %>
+        <% end %>
+      </div>
+    </div>
+    <p class="my-2">
+      <pre class="font-sans whitespace-pre-line"><%= remark.content.strip %></pre>
+    </p>
+    <% if remark.photos.any? %>
+      <div data-controller="carousel" class="my-4 group relative" data-carousel-index-value="<%= starting_photo_index %>">
+        <% if remark.photos.length > 1 %>
+          <div class="absolute left-0 z-10 flex items-center bottom-0 top-0 overflow-hidden">
+            <button type="button" aria-label="Previous image" data-action="click->carousel#previous" class="block sm:hidden sm:group-hover:block rounded-md h-full pl-2 pr-8 sm:bg-gradient-to-r from-zinc-900/[0.5] sm:hover:text-white text-white sm:text-gray-400">
+              <div class="p-2 sm:bg-transparent bg-gray-400 bg-opacity-30 rounded-full">
+                <%=
+                  heroicon "chevron-left",
+                    variant: :outline,
+                    options: { class: "block h-4 w-4 align-text-top opacity-100" },
+                    path_options: { stroke_width: 2 }
+                %>
+              </div>
+            </button>
+          </div>
+          <div class="absolute right-0 z-10 flex items-center bottom-0 top-0 overflow-hidden">
+            <button type="button" aria-label="Next image" data-action="click->carousel#next" class="block sm:hidden sm:group-hover:block rounded-md h-full pr-2 pl-8 sm:bg-gradient-to-l from-zinc-900/[0.5] sm:hover:text-white text-white sm:text-gray-400">
+              <div class="p-2 sm:bg-transparent bg-gray-400 bg-opacity-30 rounded-full">
+                <%=
+                  heroicon "chevron-right",
+                    variant: :outline,
+                    options: { class: "block h-4 w-4 align-text-top opacity-100" },
+                    path_options: { stroke_width: 2 }
+                %>
+              </div>
+            </button>
+          </div>
+        <% end %>
+        <% remark.photos.each_with_index do |photo, idx| %>
+          <div data-carousel-target="image" class="<%= idx != starting_photo_index ? "hidden" : nil %>">
+            <img
+              width="<%= photo.remark_display_width %>"
+              height="<%= photo.remark_display_height %>"
+              src="<%= photo.image(:thumbnail_placeholder)&.url %>"
+              class="rounded-md"
+              alt="<%= photo.caption || "Image" %>"
+            >
+            <% if idx == starting_photo_index %>
+              <%= render photo %>
+            <% else %>
+              <%=
+                turbo_frame_tag "photo-#{photo.id}",
+                  class: "absolute top-0 left-0 right-0 bottom-0 animate-fade-in",
+                  src: photo_path(photo),
+                  loading: :lazy
+                %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if remark.reactions.any? %>
+      <div class="flex mt-4 dark:text-gray-400 items-center">
+        <div class="mr-3">
+          <%=
+            heroicon "heart",
+              variant: :solid,
+              options: { class: "block h-3 w-3 align-text-top" },
+              path_options: { stroke_width: 2 }
+          %>
+        </div>
+        <% remark.reactions.take(3).each do |reaction| %>
+          <% if reaction.user.avatar.present? %>
+            <img
+              src="<%= reaction.user.avatar_url %>"
+              srcset="<%= reaction.user.thumbnail_url(:xs) %> 480w, <%= reaction.user.thumbnail_url(:sm) %> 1080w"
+              aria-label="<%= reaction.user.full_name %>"
+              class="border border-gray-400 dark:bg-gray-800 w-4 h-4 bg-gray-100 dark:bg-gray-700 rounded-full ml-[-0.4rem] first:ml-4"
+            >
+          <% else %>
+            <div class="mr-3 text-center leading-[0]">
+              <%= heroicon "user-circle",
+                    variant: :outline,
+                    options: { class: "block h-4 w-4 inline align-text-top" },
+                    path_options: { stroke_width: 1 }
+              %>
+            </div>
+          <% end %>
+        <% end %>
+        <% if remark.reactions.count > 3 %>
+          <span class="ml-2 text-xs">+<%= remark.reactions.count - 3 %> more</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

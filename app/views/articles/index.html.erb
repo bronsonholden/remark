@@ -1,0 +1,57 @@
+<div class="my-8">
+  <%=
+    link_to "New article", new_article_path,
+      aria: {label: "New article"},
+      class: "p-3 text-gray-800 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium rounded"
+  %>
+</div>
+<table class="border">
+  <thead>
+    <tr>
+      <th class="border p-2 font-semibold">Title</th>
+      <th class="border p-2 font-semibold">Slug</th>
+      <th class="border p-2 font-semibold">Author</th>
+      <th class="border p-2 font-semibold">Status</th>
+      <th class="border p-2 font-semibold">Created</th>
+      <th class="border p-2 font-semibold">Published</th>
+      <th class="border p-2 font-semibold">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td class="border p-2">
+          <%= link_to article.title, article_path(article) %>
+        </td>
+        <td class="border p-2">
+          <%= article.slug %>
+        </td>
+        <td class="border p-2">
+          <%= article.author.full_name %>
+        </td>
+        <td class="border p-2">
+          <%= article.status %>
+        </td>
+        <td class="border p-2">
+          <%= article.created_at %>
+        </td>
+        <td class="border p-2">
+          <%= article.published_at %>
+        </td>
+        <td class="border p-2">
+          <%=
+            link_to edit_article_path(article),
+              aria: {label: "Edit article"},
+              class: "leading-[0] dark:text-gray-400 p-3 rounded-full" do %>
+            <%=
+              heroicon "pencil",
+                variant: :outline,
+                options: { class: "block h-5 w-5 inline align-text-top" },
+                path_options: { stroke_width: 2 }
+            %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

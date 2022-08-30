@@ -1,0 +1,99 @@
+<%= Rouge::Themes::MonokaiSublime.render(scope: ".highlight") %>
+
+.inline-code {
+  margin: 1.5rem 0;
+  border: 1px solid #3f3f3f;
+  border-radius: 0.5rem;
+  color: #f8f8f2;
+  background-color: #272822;
+}
+
+.code-outer {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow-x: scroll;
+  margin: 1.5rem 0;
+}
+
+.code {
+  width: 100%;
+  display: table;
+  background-color: #272822;
+}
+
+.code code::before {
+  content: " ";
+  margin-right: 0.25rem;
+}
+
+.highlight {
+  padding-right: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+.hll:first-child .highlight, .code > .highlight:first-child {
+  padding-top: 0.35rem;
+}
+
+.hll:last-child .highlight, .code > .highlight:last-child {
+  padding-bottom: 0.35rem;
+}
+
+.hll .highlight {
+  background-color: rgb(254 240 138);
+  color: #1b1d1e;
+}
+
+.hll.hll-add .highlight {
+  background-color: rgb(134 239 172);
+}
+
+.hll.hll-rem .highlight {
+  background-color: rgb(252 165 165);
+}
+
+.hll-rem code::before {
+  content: "-";
+  color: rgb(220 38 38);
+}
+
+.hll-add code::before {
+  content: "+";
+  color: rgb(22 163 74);
+}
+
+<%# string constants %>
+.hll .s, .hll .s2, .hll .dl {
+  color: #8a8022;
+}
+
+.hll .na {
+  color: #608a0e;
+}
+
+.hll .nx, .hll .n, .hll .p {
+  background-color: unset;
+  color: #555;
+}
+
+.hll .kd {
+  color: #48a9bd;
+}
+
+.hll .nb {
+  color: #d49008;
+}
+
+<%# comments %>
+.hll .c1, .hll .cp, .hll .c {
+  color: #9c9987;
+}
+
+.highlight .c1, .highlight .cp {
+  color: #9c9987;
+}
+
+<%# names %>
+.highlight .nx, .highlight .n {
+  background-color: unset;
+}

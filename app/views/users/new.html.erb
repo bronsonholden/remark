@@ -1,0 +1,9 @@
+<div class="mx-auto w-full sm:w-72 mt-24">
+  <%= link_to "Remark", splash_path, class: "text-5xl font-bold text-gray-800 mb-2 dark:text-gray-400" %>
+  <%= render partial: "/users/form" %>
+  <%=
+    link_to "Already have an account?",
+      sign_in_path,
+      class: "block text-center decoration-inherit rounded-md text-gray-400 dark:hover:text-gray-100 hover:text-gray-700 font-medium cursor-pointer"
+  %>
+</div>

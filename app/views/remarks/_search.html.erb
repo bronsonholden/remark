@@ -1,0 +1,23 @@
+<%=
+  form_with url: feed_path,
+    method: :get,
+    data: { controller: "remarks-search", remarks_search_target: "form", turbo_frame: "remarks-page-1" } do |f|
+%>
+  <div class="relative w-full">
+    <%= f.hidden_field :user_id, value: @next_params&.fetch(:user_id, nil) %>
+    <%=
+      f.text_field :search,
+        aria: {label: "Search remarks"},
+        class: "peer border-gray-500 dark:bg-gray-800 block w-full rounded-full pl-12 pr-4 py-2 placeholder:text-gray-500 focus:placeholder:text-gray-800",
+        data: { remarks_search_target: "input", action: "input->remarks-search#search" }
+    %>
+    <div class="absolute left-4 top-[0.66rem] dark:peer-focus:text-gray-400 peer-focus:text-gray-800 text-gray-500">
+      <%=
+        heroicon "search",
+          variant: :outline,
+          options: { class: "block h-5 w-5 inline align-text-top" },
+          path_options: { stroke_width: 2 }
+      %>
+    </div>
+  </div>
+<% end %>

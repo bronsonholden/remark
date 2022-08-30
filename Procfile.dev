@@ -1,0 +1,5 @@
+web: bin/rails server
+css: bin/rails tailwindcss:watch
+elasticsearch: docker run -p 9200:9200 -e discovery.type=single-node -e ES_JAVA_OPTS="-Xms1g -Xmx1g" -e xpack.security.enabled=false -v elasticsearch:/usr/share/elasticsearch/data elasticsearch:8.3.2
+redis: docker run -p 6379:6379 redis
+worker: bundle exec sidekiq -q remarks -q searchkick -q photos

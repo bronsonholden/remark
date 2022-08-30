@@ -1,0 +1,89 @@
+<nav>
+  <ul class="flex justify-center items-center">
+    <li>
+      <%=
+        link_to new_remark_path,
+          aria: {label: "New Remark"},
+          class: "leading-[0] hover:bg-gray-100 dark:hover:text-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do
+        %>
+        <%=
+          heroicon "annotation",
+            variant: :outline,
+            options: { class: "block h-5 w-5 inline align-text-top" },
+            path_options: { stroke_width: 2 }
+        %>
+      <% end %>
+    </li>
+    <li>
+      <a href="/feed" class="block font-medium text-gray-500 dark:text-gray-400 dark:hover:text-gray-100 hover:text-gray-800 px-3 py-4 dark:hover:bg-gray-800 hover:bg-gray-100">Feed</a>
+    </li>
+    <% if Article.published.any? %>
+      <li>
+        <a href="/blog" class="block font-medium text-gray-500 dark:text-gray-400 dark:hover:text-gray-100 hover:text-gray-800 px-3 py-4 dark:hover:bg-gray-800 hover:bg-gray-100">Blog</a>
+      </li>
+    <% end %>
+    <% if signed_in? %>
+      <li>
+        <a href="/profile" class="block font-medium text-gray-500 dark:text-gray-400 dark:hover:text-gray-100 hover:text-gray-800 px-3 py-4 dark:hover:bg-gray-800 hover:bg-gray-100">Profile</a>
+      </li>
+    <% end %>
+    <li>
+      <%=
+        button_tag data: {
+          controller: "theme",
+          action: "theme#toggle"
+        },
+        aria: {label: "Toggle dark mode"},
+        class: "leading-[0] dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do
+      %>
+        <%=
+          heroicon "sun",
+            variant: :outline,
+            options: { class: "hidden dark:block h-5 w-5 inline align-text-top" },
+            path_options: { stroke_width: 2 }
+        %>
+        <%=
+          heroicon "moon",
+            variant: :solid,
+            options: { class: "block dark:hidden h-5 w-5 inline align-text-top" },
+            path_options: { stroke_width: 2 }
+        %>
+      <% end %>
+    </li>
+    <% if signed_in? %>
+      <% if current_user.admin? %>
+        <li>
+          <%= link_to control_panel_path, aria: {label: "Control panel"}, class: "leading-[0] dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do %>
+            <%=
+              heroicon "adjustments",
+                variant: :outline,
+                options: { class: "block h-5 w-5 inline align-text-top" },
+                path_options: { stroke_width: 2 }
+            %>
+          <% end %>
+        </li>
+      <% end %>
+      <li>
+        <%= button_to sign_out_path, aria: {label: "Sign out"}, method: :delete, class: "leading-[0] dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do %>
+          <%=
+            heroicon "logout",
+              variant: :outline,
+              options: { class: "block h-5 w-5 inline align-text-top" },
+              path_options: { stroke_width: 2 }
+          %>
+        <% end %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to sign_in_path, aria: {label: "Sign in"}, class: "leading-[0] dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do %>
+          <%=
+            heroicon "login",
+              variant: :outline,
+              options: { class: "block h-5 w-5 inline align-text-top" },
+              path_options: { stroke_width: 2 }
+          %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

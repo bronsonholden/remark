@@ -1,0 +1,14 @@
+<div class="inline-block px-3 py-2 bg-gray-600 relative mx-20 rounded-lg">
+  <% case @options[:direction] %>
+    <% when :left %>
+      <div class="before:w-[0.5rem] before:h-[0.5rem] before:content-[attr(before)] before:absolute before:top-[50%] before:bottom-[50%] before:trangray-y-[-50%] before:left-[-0.5rem] before:border-t-[0.5rem] before:border-b-[0.5rem] before:border-r-[0.5rem] before:border-y-transparent before:bottom-4 before:border-solid before:border-gray-600" before="">
+    <% when :right %>
+      <div class="before:w-[0.5rem] before:h-[0.5rem] before:content-[attr(before)] before:absolute before:top-[50%] before:bottom-[50%] before:trangray-y-[-50%] before:right-[-0.5rem] before:border-t-[0.5rem] before:border-b-[0.5rem] before:border-l-[0.5rem] before:border-y-transparent before:bottom-4 before:border-solid before:border-gray-600" before="">
+    <% when :bottom %>
+      <div class="before:w-[0.5rem] before:h-[0.5rem] before:content-[attr(before)] before:absolute before:left-[50%] before:right-[50%] before:trangray-x-[-50%] before:bottom-[-0.5rem] before:border-t-[0.5rem] before:border-l-[0.5rem] before:border-r-[0.5rem] before:border-x-transparent before:bottom-4 before:border-solid before:border-y-gray-600" before="">
+    <% when :top %>
+      <div class="before:w-[0.5rem] before:h-[0.5rem] before:content-[attr(before)] before:absolute before:left-[50%] before:right-[50%] before:trangray-x-[-50%] before:top-[-0.5rem] before:border-b-[0.5rem] before:border-l-[0.5rem] before:border-r-[0.5rem] before:border-x-transparent before:bottom-4 before:border-solid before:border-y-gray-600" before="">
+    <% end %>
+  </div>
+  Tooltip
+</div>

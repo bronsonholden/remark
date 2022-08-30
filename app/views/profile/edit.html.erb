@@ -1,0 +1,40 @@
+<div class="max-w-sm mx-auto">
+  <%= form_for @user, url: profile_path do |f| %>
+    <% if @user.cached_avatar_data && @user.errors.any? %>
+      <div class="block border rounded">
+        Your image was uploaded. Fix any errors and re-submit to update your avatar.
+      </div>
+    <% else %>
+      <div class="my-4">
+        <%= f.label :avatar, "Your avatar", class: "block font-medium mb-2" %>
+        <div class="flex flex-row items-center">
+          <% if current_user.avatar.present? %>
+            <img src="<%= current_user.thumbnail_url(:md) %>" class="w-20 h-20 rounded-full mr-4" aria-label="<%= current_user.full_name %>">
+          <% else %>
+            <div class="mr-3 text-center leading-[0]">
+              <%= heroicon "user-circle",
+                    variant: :outline,
+                    options: { class: "block h-20 w-20 inline align-text-top" },
+                    path_options: { stroke_width: 1 }
+              %>
+            </div>
+          <% end %>
+          <%=
+            f.file_field :avatar,
+              class: "inline-block file:mr-4 file:px-4 file:py-2 file:rounded file:border-0 file:font-medium file:bg-gray-100 file:text-gray-800 file:cursor-pointer file:dark:bg-gray-700 file:dark:text-gray-100"
+          %>
+        </div>
+      </div>
+    <% end %>
+    <div class="my-4">
+      <%= f.label :first_name, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+      <%= f.text_field :first_name, class: "rounded-md w-full dark:bg-gray-800" %>
+    </div>
+    <div class="my-4">
+      <%= f.label :last_name, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+      <%= f.text_field :last_name, class: "rounded-md w-full dark:bg-gray-800" %>
+    </div>
+    <div class="mt-12"></div>
+    <%= f.submit "Update", class: "cursor-pointer bg-lime-600 text-white px-4 py-2 rounded font-medium" %>
+  <% end %>
+</div>

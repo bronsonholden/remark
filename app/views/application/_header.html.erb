@@ -1,0 +1,18 @@
+<% search_enabled = true unless local_assigns.key?(:search_enabled) %>
+<div
+  data-controller="header"
+  class="top-0 sticky z-50 transition-[top] ease-in-out duration-300 top-[-4rem] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700"
+  data-header-offset-value="top-[-4rem]"
+  data-header-search-enabled-value="<%= search_enabled %>"
+>
+  <div class="sm:max-w-lg sm:mx-auto">
+    <% if search_enabled %>
+      <div class="relative flex flex-col justify-center p-4 sm:px-0 h-[4rem]">
+        <%= render "remarks/search" %>
+      </div>
+    <% end %>
+    <div  class="h-14">
+      <%= render "navigation" %>
+    </div>
+  </div>
+</div>

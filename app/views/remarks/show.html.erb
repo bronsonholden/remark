@@ -1,0 +1,9 @@
+<div class="sm:max-w-lg mx-auto">
+  <%= render @remark %>
+  <% if @remarks.any? %>
+    <p class="text-lg font-medium text-gray-400 mt-16">Similar Remarks</p>
+    <div class="my-4">
+      <%= render "remarks/scrollable_list" %>
+    </div>
+  <% end %>
+</div>

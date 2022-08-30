@@ -1,0 +1,37 @@
+<% if signed_in? && current_user.id == @user.id %>
+  <div class="relative sm:max-w-lg mx-auto">
+    <%=
+      link_to edit_profile_path,
+        aria: {label: "Edit profile"},
+        class: "absolute z-10 right-2 leading-[0] hover:bg-gray-100 dark:hover:text-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 p-3 rounded-full" do
+      %>
+      <%=
+        heroicon "pencil",
+          variant: :outline,
+          options: { class: "block h-5 w-5 inline align-text-top" },
+          path_options: { stroke_width: 2 }
+      %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if user.avatar.present? %>
+  <img
+    src="<%= @user.thumbnail_url(:lg) %>"
+    srcset="<%= @user.thumbnail_url(:md) %> 480w, <%= @user.thumbnail_url(:lg) %> 1080w"
+    aria-label="<%= user.full_name %>"
+    class="mx-auto my-2 h-32 h-32 w-32 bg-gray-100 dark:bg-gray-700 rounded-full"
+  >
+<% else %>
+  <div class="my-2 text-center leading-[0]">
+    <%= heroicon "user-circle",
+          variant: :outline,
+          options: { class: "block h-32 w-32 inline align-text-top" },
+          path_options: { stroke_width: 1 }
+    %>
+  </div>
+<% end %>
+<h1 class="text-center text-3xl font-bold my-4"><%= @user.full_name %></h1>
+<div class="max-w-lg mx-auto my-6">
+  <%= render "remarks/scrollable_list" %>
+</div>

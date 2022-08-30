@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "remarks-page-#{@page}" do %>
+  <%= render @remarks %>
+  <% if @has_more %>
+    <%=
+      turbo_frame_tag "remarks-page-#{@next_page}",
+        autoscroll: true,
+        target: "_top",
+        src: remarks_path(@next_params.merge(page: @next_page)),
+        loading: :lazy
+    %>
+  <% end %>
+<% end %>

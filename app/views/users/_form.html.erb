@@ -1,0 +1,26 @@
+<%= form_for @user do |form| %>
+  <div class="my-4">
+    <%= form.label :email, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= form.email_field :email, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= form.label :first_name, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= form.text_field :first_name, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= form.label :last_name, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= form.text_field :last_name, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= form.label :password, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= form.password_field :password, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= form.label "Confirm password", class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= form.password_field :password_confirmation, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <%=
+    form.submit "Create account",
+      class: "px-4 py-2 mb-4 bg-lime-600 rounded-md text-white font-medium cursor-pointer w-full"
+  %>
+<% end %>

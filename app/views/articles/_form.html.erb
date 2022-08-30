@@ -1,0 +1,30 @@
+<%= form_for @article do |f| %>
+  <div class="my-4">
+    <%= f.label :status, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= f.select :status, options_for_select(Article.statuses.keys, @article.status), {}, class: "rounded-md dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= f.label :title, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= f.text_field :title, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= f.label :slug, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= f.text_field :slug, class: "rounded-md w-full dark:bg-gray-800" %>
+  </div>
+  <div class="my-4">
+    <%= f.label :source, class: "block font-semibold text-lg text-gray-800 dark:text-gray-400" %>
+    <%= f.text_area :source, rows: 20, class: "hidden block w-full", "data-editor-container-value" => "#editor", "data-controller" => "editor" %>
+    <div id="editor" class="bg-white dark:bg-white dark:text-gray-800 border max-h-96 min-h-32 overflow-y-scroll mb-4"></div>
+  </div>
+  <%= f.hidden_field :author_id %>
+  <div class="flex gap-2">
+    <%= f.submit class: "rounded-md cursor-pointer px-4 py-2 bg-lime-600 font-medium text-white" %>
+    <%=
+      link_to articles_path,
+        aria: {label: "Cancel"},
+        class: "px-4 py-2 text-gray-800 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium rounded-md" do
+    %>
+      Cancel
+    <% end %>
+  </div>
+<% end %>

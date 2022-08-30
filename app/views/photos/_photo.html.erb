@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "photo-#{photo.id}", class: "absolute top-0 left-0 right-0 bottom-0" do %>
+  <img
+    width="<%= photo.remark_display_width %>"
+    height="<%= photo.remark_display_height %>"
+    src="<%= photo.remark_display_url %>"
+    alt="<%= photo.caption || "Image" %>"
+    class="w-full h-auto rounded-md animate-fade-in"
+  >
+<% end %>

@@ -1,0 +1,72 @@
+<div class="sm:max-w-lg mx-auto mb-12">
+  <div class="flex gap-2 mb-6">
+    <%= button_to "Reindex", reindex_remark_path(@remark), class: "bg-cyan-600 text-white px-4 py-2 cursor-pointer rounded font-medium" %>
+    <%= button_to "NLP", nlp_remark_path(@remark), class: "bg-cyan-600 text-white px-4 py-2 cursor-pointer rounded font-medium" %>
+    <%= button_to "Cache conversions", conversions_cache_remark_path(@remark), class: "bg-cyan-600 text-white px-4 py-2 cursor-pointer rounded font-medium" %>
+    <%= button_to "Photo recognition", photo_recognition_remark_path(@remark), class: "bg-cyan-600 text-white px-4 py-2 cursor-pointer rounded font-medium" %>
+  </div>
+  <%= render @remark %>
+</div>
+
+<div class="border p-4 rounded-lg">
+  <ul>
+    <li><span class="font-medium">Likes:</span> <%= @remark.reactions.like.count %></li>
+  </ul>
+</div>
+
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Elasticsearch document
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@remark.index_document) %></pre>
+</div>
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Photo recognition data
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@remark.photos.pluck(:recognition)) %></pre>
+</div>
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Photo recognition
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <div class="flex flex-col items-center gap-4 z-10 max-h-72 overflow-scroll" data-toggle-target="element">
+    <% @remark.photos.each do |photo| %>
+      <div class="relative">
+        <% if photo.recognition.present? %>
+          <% photo.recognition.fetch("labels").each do |label| %>
+            <% if label["instances"] %>
+              <% label["instances"].each do |instance| %>
+                <% top = instance["bounding_box"]["top"].floor(4) * 100 %>
+                <% left = instance["bounding_box"]["left"].floor(4) * 100 %>
+                <% width = instance["bounding_box"]["width"].floor(4) * 100 %>
+                <% height = instance["bounding_box"]["height"].floor(4) * 100 %>
+                <div class="absolute border-2 border-cyan-100" style="top:<%= top %>%;left:<%= left %>%;width:<%= width %>%;height:<%= height %>%;">
+                  <span class="absolute text-xs whitespace-nowrap p-1 bg-zinc-600 text-white"><%= label["name"] %> (conf <%= instance["confidence"].floor(2) %>%)</span>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <img src="<%= photo.image(:converted).url %>">
+      </div>
+    <% end %>
+  </div>
+</div>
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    NLP data
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@remark.nlp) %></pre>
+</div>
+<div data-controller="toggle" data-toggle-class-name-value="max-h-72" data-toggle-show-label-value="Expand" data-toggle-hide-label-value="Collapse">
+  <p class="text-lg font-medium my-2">
+    Conversions
+    <%= button_tag "Expand", data: { toggle_target: "trigger", action: "click->toggle#click" }, class: "ml-2 rounded dark:bg-gray-700 bg-gray-200 font-medium px-4 py-2" %>
+  </p>
+  <pre class="overflow-scroll border rounded-lg py-3 px-4 mb-8 max-h-72" data-toggle-target="element"><%= JSON.pretty_generate(@remark.conversions_cache) %></pre>
+</div>

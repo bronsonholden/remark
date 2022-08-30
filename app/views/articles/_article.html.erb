@@ -1,0 +1,31 @@
+<div class="mb-10">
+  <%= @article.source_html.html_safe %>
+</div>
+
+<div class="flex flex-col md:flex-row gap-6 justify-between md:items-center">
+  <div class="flex items-center">
+    <% if @article.author.avatar.present? %>
+      <img
+        src="<%= @article.author.avatar.url %>"
+        srcset="<%= @article.author.thumbnail_url(:sm) %> 480w, <%= @article.author.thumbnail_url(:md) %> 1080w"
+        aria-label="<%= @article.author.full_name %>"
+        class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full mr-3"
+      >
+    <% else %>
+      <div class="mr-3 text-center leading-[0]">
+        <%= heroicon "user-circle",
+              variant: :outline,
+              options: { class: "block h-12 w-12 inline align-text-top" },
+              path_options: { stroke_width: 1 }
+        %>
+      </div>
+    <% end %>
+    <%= link_to @article.author.full_name, user_path(@article.author), class: "text-lg font-semibold" %>
+  </div>
+
+  <% if @article.updated_since_publish? %>
+    <p class="text-gray-500 dark:text-gray-400">
+      Updated <%= @article.updated_at.strftime("%B %e, %Y at %I:%M %P #{@article.updated_at.zone}") %>
+    </p>
+  <% end %>
+</div>
