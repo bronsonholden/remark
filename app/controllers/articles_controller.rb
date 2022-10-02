@@ -19,10 +19,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    render :show, layout: "blog"
+    render :show, layout: "blog", locals: { search_enabled: false }
   end
 
   def edit
+    render :edit, locals: { search_enabled: false }
   end
 
   def update
@@ -31,7 +32,7 @@ class ArticlesController < ApplicationController
       redirect_to article_path(@article)
     else
       flash[:error] = @article.errors.full_messages.to_sentence
-      render :edit, status: :unprocessable_entity
+      render :edit, locals: { search_enabled: false }, status: :unprocessable_entity
     end
   end
 
@@ -40,6 +41,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
+    render :index, locals: { search_enabled: false }
   end
 
   private
