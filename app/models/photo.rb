@@ -3,21 +3,19 @@ class Photo < ApplicationRecord
 
   belongs_to :remark
 
+  def remark_display_image
+    image(:converted) || image
+  end
+
   def remark_display_url
-    thumbnail = image(:thumbnail)
-    return thumbnail.url if thumbnail.present?
-    image(:converted).url
+    remark_display_image.url
   end
 
   def remark_display_width
-    thumbnail = image(:thumbnail)
-    return thumbnail.metadata["width"] if thumbnail.present?
-    image.metadata["width"]
+    remark_display_image&.metadata["width"] || 0
   end
 
   def remark_display_height
-    thumbnail = image(:thumbnail)
-    return thumbnail.metadata["height"] if thumbnail.present?
-    image.metadata["height"]
+    remark_display_image&.metadata["height"] || 0
   end
 end

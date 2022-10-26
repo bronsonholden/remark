@@ -25,7 +25,7 @@ module.exports = {
         }
       },
       animation: {
-        "fade-in": "fade-in 75ms ease-in"
+        "fade-in": "fade-in 200ms ease-in"
       }
     },
     screens: {
@@ -34,6 +34,9 @@ module.exports = {
       lg: "1024px",
       xl: "1024px",
       "2xl": "1024px",
+    },
+    minHeight: {
+      "12": "12rem",
     }
   },
   plugins: [
@@ -67,6 +70,8 @@ module.exports = {
     "pl-4",
     "mb-8",
     "py-2",
+    // remark form
+    "min-h-12",
     // codespan
     "text-sm",
     "border",

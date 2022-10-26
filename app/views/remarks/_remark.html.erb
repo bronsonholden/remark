@@ -134,11 +134,17 @@
               alt="<%= photo.caption || "Image" %>"
             >
             <% if idx == starting_photo_index %>
-              <%= render photo %>
+              <img
+                width="<%= photo.remark_display_width %>"
+                height="<%= photo.remark_display_height %>"
+                src="<%= photo.remark_display_url %>"
+                alt="<%= photo.caption || "Image" %>"
+                class="w-full h-auto rounded-md animate-fade-in absolute top-0 right-0 bottom-0 left-0"
+              >
             <% else %>
               <%=
                 turbo_frame_tag "photo-#{photo.id}",
-                  class: "absolute top-0 left-0 right-0 bottom-0 animate-fade-in",
+                  class: "absolute top-0 left-0 right-0 bottom-0",
                   src: photo_path(photo),
                   loading: :lazy
                 %>
@@ -167,10 +173,11 @@
             >
           <% else %>
             <div class="mr-3 text-center leading-[0]">
-              <%= heroicon "user-circle",
-                    variant: :outline,
-                    options: { class: "block h-4 w-4 inline align-text-top" },
-                    path_options: { stroke_width: 1 }
+              <%=
+                heroicon "user-circle",
+                  variant: :outline,
+                  options: { class: "block h-4 w-4 inline align-text-top" },
+                  path_options: { stroke_width: 1 }
               %>
             </div>
           <% end %>

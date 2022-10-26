@@ -15,14 +15,11 @@ class RemarksController < ApplicationController
   end
 
   def create
-    photos_image_attributes = params.fetch(:files, []).inject({}) do |hash, file|
-      hash.merge!(SecureRandom.hex => {image: file})
+    photos_image_attributes = params.fetch(:image_data, []).inject({}) do |hash, image_data|
+      hash.merge!(SecureRandom.hex => {image_data_uri: image_data})
     end
 
     @remark = current_user.remarks.build(remark_params.merge({photos_attributes: photos_image_attributes}))
-    @remark.photos.each do |photo|
-      photo.image_attacher.create_derivatives(:converted)
-    end
     if @remark.save
       flash.discard
       @remark.photos.each { |photo| Photos::CreateDerivativesJob.perform_later(photo) }

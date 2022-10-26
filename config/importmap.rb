@@ -32,3 +32,4 @@ pin "@lezer/html", to: "https://ga.jspm.io/npm:@lezer/html@1.0.1/dist/index.es.j
 pin "@lezer/javascript", to: "https://ga.jspm.io/npm:@lezer/javascript@1.0.2/dist/index.es.js"
 pin "@lezer/lr", to: "https://ga.jspm.io/npm:@lezer/lr@1.2.0/dist/index.js"
 pin "@lezer/markdown", to: "https://ga.jspm.io/npm:@lezer/markdown@1.0.1/dist/index.js"
+pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.3/dist/heic2any.js"
