@@ -5,7 +5,7 @@ import heic2any from "heic2any"
 export default class extends Controller {
   static targets = [
     "input", // file select input
-    "data", // data URL elements
+    "data", // data inputs container
     "preview", // preview images
     "container", // container for preview images
     "placeholderIcon", // placeholder icon
@@ -21,9 +21,8 @@ export default class extends Controller {
     }
 
     this.listener = () => {
-      while (this.containerTarget.firstChild) {
-        this.containerTarget.removeChild(this.containerTarget.firstChild)
-      }
+      while (this.containerTarget.firstChild) this.containerTarget.removeChild(this.containerTarget.firstChild)
+      while (this.dataTarget.firstChild) this.dataTarget.removeChild(this.dataTarget.firstChild)
 
       this.loadingCount = this.inputTarget.files.length
       this.submitTarget.disabled = true
@@ -82,7 +81,7 @@ export default class extends Controller {
         dataInput.setAttribute("value", dataUri)
         dataInput.setAttribute("name", "image_data[]")
 
-        this.inputTarget.insertAdjacentElement("afterend", dataInput)
+        this.dataTarget.appendChild(dataInput)
 
         this.loadingCount -= 1
         if (this.loadingCount === 0) {
