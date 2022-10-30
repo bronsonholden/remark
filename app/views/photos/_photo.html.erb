@@ -1,9 +1,12 @@
 <%= turbo_frame_tag "photo-#{photo.id}" do %>
-  <img
-    width="<%= photo.remark_display_width %>"
-    height="<%= photo.remark_display_height %>"
-    src="<%= photo.remark_display_url %>"
-    alt="<%= photo.caption || "Image" %>"
-    class="w-full h-auto rounded-md animate-fade-in"
-  >
+  <picture>
+    <source type="image/webp" srcset="<%= photo.safe_version_url(:converted) %>">
+    <img
+      width="<%= photo.remark_display_width %>"
+      height="<%= photo.remark_display_height %>"
+      src="<%= photo.safe_version_url(:converted_png) %>"
+      alt="<%= photo.caption || "Image" %>"
+      class="w-full h-auto rounded-md animate-fade-in"
+    >
+  </picture>
 <% end %>

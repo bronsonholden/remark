@@ -126,21 +126,27 @@
         <% end %>
         <% remark.photos.each_with_index do |photo, idx| %>
           <div data-carousel-target="image" class="<%= idx != starting_photo_index ? "hidden" : nil %>">
-            <img
-              width="<%= photo.remark_display_width %>"
-              height="<%= photo.remark_display_height %>"
-              src="<%= photo.image(:thumbnail_placeholder)&.url %>"
-              class="rounded-md"
-              alt="<%= photo.caption || "Image" %>"
-            >
-            <% if idx == starting_photo_index %>
+            <picture>
+              <source type="image/webp" srcset="<%= photo.safe_version_url(:thumbnail) %>">
               <img
                 width="<%= photo.remark_display_width %>"
                 height="<%= photo.remark_display_height %>"
-                src="<%= photo.remark_display_url %>"
+                src="<%= photo.safe_version_url(:thumbnail_png) %>"
+                class="rounded-md"
                 alt="<%= photo.caption || "Image" %>"
-                class="w-full h-auto rounded-md animate-fade-in absolute top-0 right-0 bottom-0 left-0"
               >
+            </picture>
+            <% if idx == starting_photo_index %>
+              <picture>
+                <source type="image/webp" srcset="<%= photo.safe_version_url(:thumbnail) %>">
+                <img
+                  width="<%= photo.remark_display_width %>"
+                  height="<%= photo.remark_display_height %>"
+                  src="<%= photo.safe_version_url(:thumbnail_png) %>"
+                  alt="<%= photo.caption || "Image" %>"
+                  class="w-full h-auto rounded-md animate-fade-in absolute top-0 right-0 bottom-0 left-0"
+                >
+              </picture>
             <% else %>
               <%=
                 turbo_frame_tag "photo-#{photo.id}",

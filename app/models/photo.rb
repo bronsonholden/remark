@@ -18,4 +18,8 @@ class Photo < ApplicationRecord
   def remark_display_height
     remark_display_image&.metadata["height"] || 0
   end
+
+  def safe_version_url(version)
+    image(version)&.url || image_url
+  end
 end

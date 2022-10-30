@@ -1,10 +1,9 @@
 class ImageUploader < Shrine
   Attacher.derivatives :thumbnail do |original|
     magick = ImageProcessing::MiniMagick.source(original)
-    thumbnail = magick.colorspace("sRGB").quality(85).resize_to_fit(478, 1400)
+    thumbnail = magick.colorspace("sRGB").quality(100).resize_to_fit(478, 1400)
     {
       thumbnail: thumbnail.convert("webp").call,
-      thumbnail_placeholder: thumbnail.convert("webp").blur("0x8").quality(30).resize_to_fit(239, 700).call,
       thumbnail_png: thumbnail.convert("png").call
     }
   end
