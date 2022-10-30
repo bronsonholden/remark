@@ -12,12 +12,14 @@ export default class extends Controller {
       this.scrollY = 0
 
       this.listener = () => {
+        if (this.muteEvents) {
+          return
+        }
+
         if (window.scrollY < this.scrollY - 50) {
-          this.element.classList.remove(this.offsetValue)
-          this.scrollY = window.scrollY
+          this.peek()
         } else if (window.scrollY > this.scrollY) {
-          this.element.classList.add(this.offsetValue)
-          this.scrollY = window.scrollY
+          this.tuck()
         }
       }
 
@@ -32,5 +34,15 @@ export default class extends Controller {
     if (this.searchEnabledValue) {
       window.removeEventListener("scroll", this.listener)
     }
+  }
+
+  tuck() {
+    this.element.classList.add(this.offsetValue)
+    this.scrollY = window.scrollY
+  }
+
+  peek() {
+    this.element.classList.remove(this.offsetValue)
+    this.scrollY = window.scrollY
   }
 }
