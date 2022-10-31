@@ -25,7 +25,8 @@
 
   <% if @article.updated_since_publish? %>
     <p class="text-gray-500 dark:text-gray-400">
-      Updated <%= @article.updated_at.strftime("%B %e, %Y at %I:%M %P #{@article.updated_at.zone}") %>
+      <% t = @article.updated_at.in_time_zone("America/Chicago") %>
+      Updated <%= t.strftime("%B %e, %Y at %I:%M %P #{t.zone}") %>
     </p>
   <% end %>
 </div>
