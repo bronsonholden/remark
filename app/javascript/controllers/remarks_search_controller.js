@@ -7,12 +7,18 @@ export default class extends Controller {
   connect() {
     const params = (new URL(document.location)).searchParams
     const searchTerm = params.get("search")
-    this.inputTarget.value = searchTerm
+    if (searchTerm) {
+      this.inputTarget.value = decodeURIComponent(searchTerm)
+    }
   }
 
   search() {
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
+      const params = (new URL(document.location)).searchParams
+      params.set("search", encodeURIComponent(this.inputTarget.value))
+      const path = `${window.location.pathname}?${params.toString()}`
+      history.pushState(null, "", path)
       this.formTarget.requestSubmit()
     }, 300)
   }
