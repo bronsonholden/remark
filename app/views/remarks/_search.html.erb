@@ -11,7 +11,7 @@
         class: "peer border-gray-500 dark:bg-gray-800 block w-full rounded-full pl-12 pr-4 py-2 placeholder:text-gray-500 focus:placeholder:text-gray-800",
         data: { remarks_search_target: "input", action: "input->remarks-search#search" }
     %>
-    <div class="absolute left-4 top-[0.66rem] dark:peer-focus:text-gray-400 peer-focus:text-gray-800 text-gray-500">
+    <div class="pointer-events-none absolute left-4 top-[0.66rem] dark:peer-focus:text-gray-400 peer-focus:text-gray-800 text-gray-500">
       <%=
         heroicon "search",
           variant: :outline,
@@ -19,5 +19,18 @@
           path_options: { stroke_width: 2 }
       %>
     </div>
+    <button
+      type="button"
+      data-remarks-search-target="clear"
+      data-action="remarks-search#clear"
+      class="hidden leading-[0] absolute top-[0.3rem] right-[0.33rem] dark:peer-focus:text-gray-400 peer-focus:text-gray-800 text-gray-500 peer-foucus:hover:text-gray-900 hover:text-gray-900 sm:hover:bg-gray-100 sm:dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:peer-focus:hover:text-gray-300 rounded-full p-[0.4rem]"
+    >
+      <%=
+        heroicon "x",
+          variant: :outline,
+          options: { class: "block h-5 w-5 inline align-text-top" },
+          path_options: { stroke_width: 2 }
+      %>
+    </button>
   </div>
 <% end %>
