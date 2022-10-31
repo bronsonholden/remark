@@ -15,10 +15,13 @@ export default class extends Controller {
   search() {
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
-      const params = (new URL(document.location)).searchParams
-      params.set("search", encodeURIComponent(this.inputTarget.value))
-      const path = `${window.location.pathname}?${params.toString()}`
-      history.pushState(null, "", path)
+      const url = new URL(document.location)
+      if (this.inputTarget.value) {
+        url.searchParams.set("search", encodeURIComponent(this.inputTarget.value))
+      } else {
+        url.searchParams.delete("search")
+      }
+      history.pushState(null, "", url.toString())
       this.formTarget.requestSubmit()
     }, 300)
   }
