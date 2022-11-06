@@ -30,15 +30,21 @@ module HasRemarkSearch
               sentiment: @similar_remark&.nlp&.fetch("sentiment", nil)
             }.compact_blank,
             fields: [
+              {author: :word},
               {conversions: :word},
               {content: :word_start},
               {key_phrases: :word_start},
-              {author: :word},
               {"photo_recognition.label": :word},
               "reactions.user.name"
             ].compact_blank,
             track: @page == 1 && @similar.blank?,
-            debug: true
+            misspellings: {
+              fields: [
+                "conversions",
+                "content"
+              ]
+            },
+            debug: false
           )
           @search_id ||= results.search.id if @similar.blank?
           @debug = results

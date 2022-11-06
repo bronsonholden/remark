@@ -44,7 +44,7 @@
             link_to debug_remark_path(remark),
               aria: {label: "Debug Remark"},
               data: { turbo_frame: "_top" },
-              class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do %>
+              class: "leading-[0] dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-gray-800 text-gray-500 dark:hover:text-gray-300 p-3 rounded-full" do %>
             <%=
               heroicon "cog",
                 variant: :outline,
@@ -61,7 +61,7 @@
             button_to reactions_remark_path(remark, search_id: @search_id),
               method: reacted ? :delete : :put,
               aria: {label: reacted ? "Remove like" : "Like this Remark"},
-              class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do
+              class: "leading-[0] dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-gray-800 text-gray-500 dark:hover:text-gray-300 p-3 rounded-full" do
           %>
             <%=
               heroicon "heart",
@@ -83,7 +83,7 @@
               action: "search-conversion#convert",
               turbo_frame: "_top"
             },
-            class: "leading-[0] dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 p-3 rounded-full" do %>
+            class: "leading-[0] dark:hover:bg-gray-700 hover:bg-gray-100 hover:text-gray-800 text-gray-500 dark:hover:text-gray-300 p-3 rounded-full" do %>
           <%=
             heroicon "chat-alt-2",
               variant: :outline,
