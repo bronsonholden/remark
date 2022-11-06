@@ -28,7 +28,7 @@ export default class extends Controller {
       this.submitTarget.disabled = true
       this.submitTarget.value = "Please wait..."
 
-      { [...this.inputTarget.files].forEach(this.processFile) }
+      { [...this.inputTarget.files].forEach(this.processImageFile) }
     }
 
     this.inputTarget.addEventListener("change", this.listener)
@@ -38,7 +38,7 @@ export default class extends Controller {
     this.inputTarget.removeEventListener("change", this.listener)
   }
 
-  processFile = (file, idx) => {
+  processImageFile = (file, idx) => {
     const canvas = document.createElement("canvas")
     const img = document.createElement("img")
     const wrapper = document.createElement("div")
