@@ -141,6 +141,7 @@
               <% end %>
               <% if photo.is_video? %>
                 <video
+                  autoplay
                   controls
                   data-controller="video"
                   class="invisible rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0" : nil %>"
