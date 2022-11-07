@@ -2,12 +2,12 @@
   <% if photo.is_video? %>
     <video
       data-controller="video"
-      autoplay
+      playsinline
       controls
       width="512"
-      class="invisible rounded-md h-auto w-full"
+      class="rounded-md h-auto w-full"
     >
-      <source src="<%= photo.image_url %>" type="video/mp4">
+      <source src="<%= photo.image_url %>">
     </video>
   <% else %>
     <picture>

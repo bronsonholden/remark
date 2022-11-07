@@ -58,6 +58,7 @@ export default class extends Controller {
 
     video.setAttribute("width", "512")
     video.setAttribute("controls", true)
+    video.setAttribute("playsinline", true)
     video.classList.add("rounded-lg", "my-4")
     source.setAttribute("type", file.type === "video/quicktime" ? "video/mp4" : file.type)
     video.appendChild(source)

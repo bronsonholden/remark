@@ -99,28 +99,34 @@
     <% if remark.photos.any? %>
       <div data-controller="carousel" class="my-4 group relative" data-carousel-index-value="<%= starting_photo_index %>">
         <% if remark.photos.length > 1 %>
-          <div data-carousel-target="previous" class="absolute left-0 z-10 flex items-center bottom-0 top-0 overflow-hidden">
-            <button type="button" aria-label="Previous image" data-action="click->carousel#previous" class="block sm:hidden sm:group-hover:block rounded-md h-full pl-2 pr-8 text-white">
-              <div class="p-2 backdrop-contrast-50 rounded-full">
-                <%=
-                  heroicon "chevron-left",
-                    variant: :outline,
-                    options: { class: "block h-4 w-4 align-text-top" },
-                    path_options: { stroke_width: 2 }
-                %>
-              </div>
+          <div data-carousel-target="previous" class="absolute left-2 top-[50%] -translate-y-[22px] z-10 flex items-center overflow-hidden">
+            <button
+              type="button"
+              aria-label="Previous media"
+              data-action="click->carousel#previous"
+              class="block sm:hidden sm:group-hover:block rounded-full text-white backdrop-contrast-50 p-[0.75rem]"
+            >
+              <%=
+                heroicon "chevron-left",
+                  variant: :outline,
+                  options: { class: "block h-5 w-5 align-text-top" },
+                  path_options: { stroke_width: 3 }
+              %>
             </button>
           </div>
-          <div data-carousel-target="next" class="absolute right-0 z-10 flex items-center bottom-0 top-0 overflow-hidden">
-            <button type="button" aria-label="Next image" data-action="click->carousel#next" class="block sm:hidden sm:group-hover:block rounded-md h-full pr-2 pl-8 sm:hover:text-white text-white">
-              <div class="p-2 backdrop-contrast-50 rounded-full">
-                <%=
-                  heroicon "chevron-right",
-                    variant: :outline,
-                    options: { class: "block h-4 w-4 align-text-top" },
-                    path_options: { stroke_width: 2 }
-                %>
-              </div>
+          <div data-carousel-target="next" class="absolute right-2 top-[50%] -translate-y-[22px] z-10 flex items-center overflow-hidden">
+            <button
+              type="button"
+              aria-label="Next media"
+              data-action="click->carousel#next"
+              class="block sm:hidden sm:group-hover:block rounded-full sm:hover:text-white text-white backdrop-contrast-50 p-[0.75rem]"
+            >
+              <%=
+                heroicon "chevron-right",
+                  variant: :outline,
+                  options: { class: "block h-5 w-5 align-text-top" },
+                  path_options: { stroke_width: 3 }
+              %>
             </button>
           </div>
         <% end %>
@@ -141,12 +147,12 @@
               <% end %>
               <% if photo.is_video? %>
                 <video
-                  autoplay
+                  playsinline
                   controls
                   data-controller="video"
-                  class="invisible rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0" : nil %>"
+                  class="w-full h-full rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0 bottom-0 right-0" : nil %>"
                 >
-                  <source src="<%= photo.image_url %>" type="video/mp4">
+                  <source src="<%= photo.image_url %>">
                 </video>
               <% else %>
                 <picture>
@@ -156,7 +162,7 @@
                     height="<%= photo.remark_display_height %>"
                     src="<%= photo.safe_version_url(:converted_png) %>"
                     alt="<%= photo.caption || "Image" %>"
-                    class="w-full h-auto rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0" : nil %>"
+                    class="w-full h-auto rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0 bottom-0 right-0" : nil %>"
                   >
                 </picture>
               <% end %>
