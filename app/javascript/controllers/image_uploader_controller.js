@@ -1,6 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 import heic2any from "heic2any"
 
+const IMAGE_TYPES = [
+  "image/png",
+  "image/webp",
+  "image/jpeg",
+  "image/heic",
+  "image/heif"
+]
+
 // Connects to data-controller="image-uploader"
 export default class extends Controller {
   static targets = [
@@ -28,7 +36,13 @@ export default class extends Controller {
       this.submitTarget.disabled = true
       this.submitTarget.value = "Please wait..."
 
-      { [...this.inputTarget.files].forEach(this.processImageFile) }
+      { [...this.inputTarget.files].forEach((file, idx) => {
+        if (IMAGE_TYPES.includes(file.type)) {
+          this.processImageFile(file, idx)
+        } else {
+          this.processVideoFile(file, idx)
+        }
+      }) }
     }
 
     this.inputTarget.addEventListener("change", this.listener)
@@ -36,6 +50,40 @@ export default class extends Controller {
 
   disconnect() {
     this.inputTarget.removeEventListener("change", this.listener)
+  }
+
+  processVideoFile = (file, idx) => {
+    const video = document.createElement("video")
+    const source = document.createElement("source")
+
+    video.setAttribute("width", "512")
+    video.setAttribute("controls", true)
+    video.classList.add("rounded-lg", "my-4")
+    source.setAttribute("type", file.type === "video/quicktime" ? "video/mp4" : file.type)
+    video.appendChild(source)
+
+    const reader = new FileReader()
+
+    reader.onload = (e) => {
+      const dataUri = e.target.result
+      source.setAttribute("src", dataUri)
+
+      this.containerTarget.appendChild(video)
+
+      const dataInput = document.createElement("input")
+      dataInput.setAttribute("type", "hidden")
+      dataInput.setAttribute("value", dataUri)
+      dataInput.setAttribute("name", "image_data[]")
+
+      this.dataTarget.appendChild(dataInput)
+      this.loadingCount -= 1
+      if (this.loadingCount === 0) {
+        this.submitTarget.disabled = false
+        this.submitTarget.value = "Send it"
+      }
+    }
+
+    reader.readAsDataURL(file)
   }
 
   processImageFile = (file, idx) => {

@@ -12,6 +12,7 @@ Install:
 * Heroku CLI
 * ImageMagick
 * Docker
+* FFMPEG
 
 Run:
 

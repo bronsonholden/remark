@@ -22,4 +22,8 @@ class Photo < ApplicationRecord
   def safe_version_url(version)
     image(version)&.url || image_url
   end
+
+  def is_video?
+    image.mime_type.start_with?("video")
+  end
 end

@@ -126,34 +126,55 @@
         <% end %>
         <% remark.photos.each_with_index do |photo, idx| %>
           <div data-carousel-target="image" class="<%= idx != starting_photo_index ? "hidden" : nil %>">
-            <picture>
-              <source type="image/webp" srcset="<%= photo.safe_version_url(:thumbnail) %>">
-              <img
-                width="<%= photo.remark_display_width %>"
-                height="<%= photo.remark_display_height %>"
-                src="<%= photo.safe_version_url(:thumbnail_png) %>"
-                class="rounded-md"
-                alt="<%= photo.caption || "Image" %>"
-              >
-            </picture>
             <% if idx == starting_photo_index %>
-              <picture>
-                <source type="image/webp" srcset="<%= photo.safe_version_url(:thumbnail) %>">
-                <img
-                  width="<%= photo.remark_display_width %>"
-                  height="<%= photo.remark_display_height %>"
-                  src="<%= photo.safe_version_url(:thumbnail_png) %>"
-                  alt="<%= photo.caption || "Image" %>"
-                  class="w-full h-auto rounded-md animate-fade-in absolute top-0 right-0 bottom-0 left-0"
+              <% if photo.image(:thumbnail) %>
+                <picture>
+                  <source type="image/webp" srcset="<%= photo.safe_version_url(:thumbnail) %>">
+                  <img
+                    width="<%= photo.remark_display_width %>"
+                    height="<%= photo.remark_display_height %>"
+                    src="<%= photo.safe_version_url(:thumbnail_png) %>"
+                    alt="<%= photo.caption || "Image" %>"
+                    class="w-full h-auto rounded-md"
+                  >
+                </picture>
+              <% end %>
+              <% if photo.is_video? %>
+                <video
+                  controls
+                  data-controller="video"
+                  class="invisible rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0" : nil %>"
                 >
-              </picture>
+                  <source src="<%= photo.image_url %>" type="video/mp4">
+                </video>
+              <% else %>
+                <picture>
+                  <source type="image/webp" srcset="<%= photo.safe_version_url(:converted) %>">
+                  <img
+                    width="<%= photo.remark_display_width %>"
+                    height="<%= photo.remark_display_height %>"
+                    src="<%= photo.safe_version_url(:converted_png) %>"
+                    alt="<%= photo.caption || "Image" %>"
+                    class="w-full h-auto rounded-md <%= photo.image(:thumbnail_png) ? "absolute top-0 left-0" : nil %>"
+                  >
+                </picture>
+              <% end %>
             <% else %>
               <%=
                 turbo_frame_tag "photo-#{photo.id}",
-                  class: "absolute top-0 left-0 right-0 bottom-0",
                   src: photo_path(photo),
-                  loading: :lazy
-                %>
+                  loading: :lazy do
+              %>
+                <picture>
+                  <img
+                    width="<%= photo.remark_display_width %>"
+                    height="<%= photo.remark_display_height %>"
+                    src="<%= photo.safe_version_url(:thumbnail_png) %>"
+                    class="rounded-md"
+                    alt="<%= photo.caption || "Image" %>"
+                  >
+                </picture>
+              <% end %>
             <% end %>
           </div>
         <% end %>

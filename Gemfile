@@ -108,3 +108,5 @@ gem "aws-sdk-rekognition", "~> 1.68"
 gem "redcarpet", "~> 3.5"
 
 gem "rouge", "~> 3.30"
+
+gem "streamio-ffmpeg", "~> 3.0"

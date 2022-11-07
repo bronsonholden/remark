@@ -65,14 +65,18 @@ export default class extends Controller {
     )
 
     if (bottomOverflow > maxOverflow || topOverflow > 0) {
-      headerController.tuck()
-      headerController.muteEvents = true
+      if (headerController) {
+        headerController.tuck()
+        headerController.muteEvents = true
+      }
       this.imageTargets[this.indexValue].scrollIntoView({
         alignToTop: false,
         behavior: "smooth",
         block: "center"
       })
-      setTimeout(() => { headerController.muteEvents = false }, 800)
+      if (headerController) {
+        setTimeout(() => { headerController.muteEvents = false }, 800)
+      }
     }
   }
 
