@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "photo-#{photo.id}" do %>
-  <div class="absolute top-0 left-0 bottom-0 right-0">
+  <div class="absolute top-0 left-0 bottom-0 right-0 animate-fade-in">
     <% if photo.is_video? %>
       <video
         data-controller="video"
