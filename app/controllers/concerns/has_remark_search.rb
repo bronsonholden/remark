@@ -41,8 +41,10 @@ module HasRemarkSearch
             misspellings: {
               fields: [
                 "conversions",
-                "content"
-              ]
+                "content",
+                "photo_recognition.label"
+              ],
+              edit_distance: 2
             },
             debug: false
           )
