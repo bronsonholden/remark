@@ -12,7 +12,7 @@ class Photos::RecognitionJob < ApplicationJob
       credentials: credentials
     )
     key = "#{photo.image(:converted_png).storage.prefix}/#{photo.image(:converted_png).id}"
-    res = rekognition.detect_labels({
+    labels = rekognition.detect_labels({
       image: {
         s3_object: {
           bucket: Rails.application.secrets.aws_s3_bucket,
@@ -22,6 +22,17 @@ class Photos::RecognitionJob < ApplicationJob
       max_labels: 50,
       min_confidence: 70,
     })
-    photo.update!(recognition: res.to_h)
+    text = rekognition.detect_text({
+      image: {
+        s3_object: {
+          bucket: Rails.application.secrets.aws_s3_bucket,
+          name: key,
+        },
+      },
+      filters: {
+        min_confidence: 0.2
+      }
+    })
+    photo.update!(recognition: labels.to_h.merge(text.to_h))
   end
 end

@@ -65,13 +65,17 @@ class Remark < ApplicationRecord
 
   def photo_recognition_data
     photos.pluck(:recognition).compact.map do |recognition|
-      recognition.fetch("labels", []).map do |label|
+      labels = recognition.fetch("labels", []).map do |label|
         if label.fetch("instances").present?
           {label: label["name"], confidence: label["confidence"] / 100}
         else
           {label: label["name"], confidence: label["confidence"] / 200}
         end
       end
+      texts = recognition.fetch("text_detections", []).map do |item|
+        {label: item["detected_text"], confidence: item["confidence"] / 100}
+      end
+      [*labels, *texts]
     end.flatten.sort do |a, b|
       b[:confidence] - a[:confidence]
     end.map do |entry|
