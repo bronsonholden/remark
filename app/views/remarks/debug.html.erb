@@ -51,7 +51,9 @@
             <% end %>
           <% end %>
         <% end %>
-        <img src="<%= photo.image(:converted).url %>">
+        <% if photo.image(:converted) %>
+          <img src="<%= photo.image(:converted).url %>">
+        <% end %>
       </div>
     <% end %>
   </div>
