@@ -30,7 +30,9 @@ class Photos::RecognitionJob < ApplicationJob
         },
       },
       filters: {
-        min_confidence: 0.2
+        word_filter: {
+          min_confidence: 0.2
+        }
       }
     })
     photo.update!(recognition: labels.to_h.merge(text.to_h))
