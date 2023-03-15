@@ -167,21 +167,20 @@
                 </picture>
               <% end %>
             <% else %>
+              <picture>
+                <img
+                  width="<%= photo.remark_display_width %>"
+                  height="<%= photo.remark_display_height %>"
+                  src="<%= photo.safe_version_url(:thumbnail_png) %>"
+                  class="rounded-md"
+                  alt="<%= photo.caption || "Image" %>"
+                >
+                </picture>
               <%=
                 turbo_frame_tag "photo-#{photo.id}",
                   src: photo_path(photo),
-                  loading: :lazy do
+                  loading: :lazy
               %>
-                <picture>
-                  <img
-                    width="<%= photo.remark_display_width %>"
-                    height="<%= photo.remark_display_height %>"
-                    src="<%= photo.safe_version_url(:thumbnail_png) %>"
-                    class="rounded-md"
-                    alt="<%= photo.caption || "Image" %>"
-                  >
-                </picture>
-              <% end %>
             <% end %>
           </div>
         <% end %>

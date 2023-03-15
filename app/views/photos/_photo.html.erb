@@ -1,24 +1,26 @@
 <%= turbo_frame_tag "photo-#{photo.id}" do %>
-  <% if photo.is_video? %>
-    <video
-      data-controller="video"
-      playsinline
-      controls
-      width="512"
-      class="rounded-md h-auto w-full"
-    >
-      <source src="<%= photo.image_url %>">
-    </video>
-  <% else %>
-    <picture>
-      <source type="image/webp" srcset="<%= photo.safe_version_url(:converted) %>">
-      <img
-        width="<%= photo.remark_display_width %>"
-        height="<%= photo.remark_display_height %>"
-        src="<%= photo.safe_version_url(:converted_png) %>"
-        alt="<%= photo.caption || "Image" %>"
-        class="w-full h-auto rounded-md"
+  <div class="absolute top-0 left-0 bottom-0 right-0">
+    <% if photo.is_video? %>
+      <video
+        data-controller="video"
+        playsinline
+        controls
+        width="512"
+        class="rounded-md h-auto w-full"
       >
-    </picture>
-  <% end %>
+        <source src="<%= photo.image_url %>">
+      </video>
+    <% else %>
+      <picture>
+        <source type="image/webp" srcset="<%= photo.safe_version_url(:converted) %>">
+        <img
+          width="<%= photo.remark_display_width %>"
+          height="<%= photo.remark_display_height %>"
+          src="<%= photo.safe_version_url(:converted_png) %>"
+          alt="<%= photo.caption || "Image" %>"
+          class="w-full h-auto rounded-md"
+        >
+      </picture>
+    <% end %>
+  </div>
 <% end %>
