@@ -33,8 +33,6 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -44,12 +42,6 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# Use Sass to process CSS
-# gem "sassc-rails"
-
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -62,9 +54,6 @@ group :development do
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
 end
 
 group :test do
@@ -74,37 +63,21 @@ group :test do
   gem "webdrivers"
 end
 
-gem "clearance", "~> 2.6"
-
-gem "heroicon", "~> 0.4.0"
-
-gem "pagy", "~> 5.10"
-
-gem "searchkick", "~> 5.0"
-gem "elasticsearch", "~> 7.4"
-
-gem "connection_pool", "~> 2.2"
-
-gem "sidekiq", "~> 6.5"
-
-gem "view_component", "~> 2.59"
-
 gem "aws-sdk-comprehend", "~> 1.61"
-
-gem "aws-sdk-s3", "~> 1.114"
-
-gem "searchjoy", "~> 1.0"
-
-gem "shrine", "~> 3.4"
-
-gem "fastimage", "~> 2.2"
-
-gem "image_processing", "~> 1.12"
-
 gem "aws-sdk-rekognition", "~> 1.68"
-
+gem "aws-sdk-s3", "~> 1.114"
+gem "clearance", "~> 2.6"
+gem "connection_pool", "~> 2.2"
+gem "elasticsearch", "~> 7.4"
+gem "fastimage", "~> 2.2"
+gem "heroicon", "~> 0.4.0"
+gem "image_processing", "~> 1.12"
+gem "pagy", "~> 5.10"
 gem "redcarpet", "~> 3.5"
-
 gem "rouge", "~> 3.30"
-
+gem "searchjoy", "~> 1.0"
+gem "searchkick", "~> 5.0"
+gem "shrine", "~> 3.4"
+gem "sidekiq", "~> 6.5"
 gem "streamio-ffmpeg", "~> 3.0"
+gem "view_component", "~> 2.59"
