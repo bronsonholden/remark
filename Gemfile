@@ -74,8 +74,6 @@ group :test do
   gem "webdrivers"
 end
 
-gem "omniauth-google-oauth2", "~> 1.0"
-
 gem "clearance", "~> 2.6"
 
 gem "heroicon", "~> 0.4.0"
