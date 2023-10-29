@@ -9,6 +9,7 @@ class BlogController < ApplicationController
   def show
     @article = Article.published.find_by(slug: params.require(:slug))
     if @article.present?
+      @page_title = @article.title
       render :show, locals: { search_enabled: false }
     else
       flash[:error] = "No article found"
