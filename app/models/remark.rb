@@ -47,6 +47,11 @@ class Remark < ApplicationRecord
     [keywords, entities, conversions_cache&.keys, photo_labels].flatten.uniq.compact_blank
   end
 
+  def key_phrases
+    return [] unless nlp.present?
+    nlp.fetch("key_phrases", []).map { |kp| kp["text"] }
+  end
+
   private
 
   def reaction_data

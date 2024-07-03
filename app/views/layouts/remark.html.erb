@@ -10,7 +10,7 @@
         document.documentElement.classList.remove("dark")
       }
     </script>
-    <%= social_meta_tags %>
+    <%= render "remarks/meta_tags", remark: @remark %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag "favicon.svg" %>

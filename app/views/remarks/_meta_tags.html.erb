@@ -1,0 +1,10 @@
+<meta name="description" content="<%= remark.content %>">
+<meta name="keywords" content="<%= remark.key_phrases.join(" ") %>">
+<meta property="og:title" content="Remark" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= remark_url(remark) %>" />
+<meta property="og:image" content="<%= remark.photos.first.safe_version_url(:converted) %>" />
+<meta name="twitter:title" content="Remark">
+<meta name="twitter:description" content="<%= remark.content %>">
+<meta name="twitter:image" content="<%= remark.photos.first.safe_version_url(:converted) %>">
+<meta name="twitter:card" content="summary_large_image">
