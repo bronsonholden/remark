@@ -2,7 +2,7 @@ class BlogController < ApplicationController
   layout "blog"
 
   def index
-    @articles = Article.published.order(created_at: :desc)
+    @articles = Article.published.order(published_at: :desc)
     render :index, locals: { search_enabled: false }
   end
 
