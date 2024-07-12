@@ -12,6 +12,10 @@ class UsersController < Clearance::UsersController
   def create
     @user = User.new(user_params)
 
+    flash[:error] = "Remark is a private platform: user creation currently is disabled"
+    render template: "users/new", status: :unprocessable_entity
+    return
+
     if @user.save
       sign_in @user
       flash.discard
