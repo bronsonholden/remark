@@ -70,7 +70,7 @@ class TailwindHtmlRenderer < Redcarpet::Render::HTML
 
   def codespan(code)
     <<~HTML.chomp
-      <span class="inline-code border font-mono py-[0.13rem] px-2">#{code}</span>
+      <span class="inline-code border font-mono py-[0.13rem] px-2">#{code.gsub("<", "&lt;").gsub(">", "&gt;")}</span>
     HTML
   end
 
@@ -146,7 +146,7 @@ class TailwindHtmlRenderer < Redcarpet::Render::HTML
       "mt-3"
     end
     <<~HTML.chomp
-      <h#{level} id="#{text.parameterize}" class="#{margins} #{text_size} #{weight} first:mt-0">#{text}</h#{level}>
+      <h#{level} id="#{text.parameterize}" class="#{margins} #{text_size} #{weight} first:mt-0 leading-[1.1]">#{text}</h#{level}>
     HTML
   end
 end

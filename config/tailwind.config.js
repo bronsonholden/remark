@@ -88,6 +88,7 @@ module.exports = {
     "columns-4",
     "whitespace-pre-wrap",
     // headers
+    "leading-[1.1]",
     "!text-6xl",
     "!text-4xl",
     "!text-2xl",
