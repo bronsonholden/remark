@@ -3,8 +3,12 @@
 <meta property="og:title" content="Remark" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="<%= remark_url(remark) %>" />
-<meta property="og:image" content="<%= remark.photos.first.safe_version_url(:converted) %>" />
+<% if remark.photos.any? %>
+  <meta property="og:image" content="<%= remark.photos.first.safe_version_url(:converted) %>" />
+<% end %>
 <meta name="twitter:title" content="Remark">
 <meta name="twitter:description" content="<%= remark.content %>">
-<meta name="twitter:image" content="<%= remark.photos.first.safe_version_url(:converted) %>">
-<meta name="twitter:card" content="summary_large_image">
+<% if remark.photos.any? %>
+  <meta name="twitter:image" content="<%= remark.photos.first.safe_version_url(:converted) %>">
+  <meta name="twitter:card" content="summary_large_image">
+<% end %>
