@@ -130,7 +130,7 @@
             </button>
           </div>
         <% end %>
-        <% remark.photos.each_with_index do |photo, idx| %>
+        <% remark.photos.order(id: :asc).each_with_index do |photo, idx| %>
           <div data-carousel-target="image" class="<%= idx != starting_photo_index ? "hidden" : nil %>">
             <% if idx == starting_photo_index %>
               <% if photo.image(:thumbnail) %>
