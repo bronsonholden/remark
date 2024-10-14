@@ -36,13 +36,15 @@ export default class extends Controller {
       this.submitTarget.disabled = true
       this.submitTarget.value = "Please wait..."
 
-      { [...this.inputTarget.files].forEach((file, idx) => {
-        if (IMAGE_TYPES.includes(file.type)) {
-          this.processImageFile(file, idx)
-        } else {
-          this.processVideoFile(file, idx)
-        }
-      }) }
+      {
+        [...this.inputTarget.files].forEach((file, idx) => {
+          if (IMAGE_TYPES.includes(file.type)) {
+            this.processImageFile(file, idx)
+          } else {
+            this.processVideoFile(file, idx)
+          }
+        })
+      }
     }
 
     this.inputTarget.addEventListener("change", this.listener)
@@ -134,6 +136,7 @@ export default class extends Controller {
 
         this.loadingCount -= 1
         if (this.loadingCount === 0) {
+          console.log("Loaded image input", idx, file, dataInput.value)
           this.submitTarget.disabled = false
           this.submitTarget.value = "Send it"
         }
@@ -144,9 +147,11 @@ export default class extends Controller {
           blob: file,
           toType: "image/png"
         }).then((result) => {
+          console.log("Converted HEIC image", idx, file)
           img.src = URL.createObjectURL(result)
         })
       } else {
+        console.log("Converted image", idx, file)
         img.src = e.target.result
       }
     }
