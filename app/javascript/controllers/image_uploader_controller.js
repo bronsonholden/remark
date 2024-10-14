@@ -135,8 +135,8 @@ export default class extends Controller {
         this.dataTarget.appendChild(dataInput)
 
         this.loadingCount -= 1
+        console.log("Loaded image input", idx, file, dataInput.value)
         if (this.loadingCount === 0) {
-          console.log("Loaded image input", idx, file, dataInput.value)
           this.submitTarget.disabled = false
           this.submitTarget.value = "Send it"
         }
