@@ -8,6 +8,8 @@ export default class extends Controller {
   }
 
   connect() {
+    this.searchEnabledValue = false
+
     if (this.searchEnabledValue) {
       this.scrollY = 0
 
