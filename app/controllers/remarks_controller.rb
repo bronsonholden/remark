@@ -32,7 +32,8 @@ class RemarksController < ApplicationController
   end
 
   def show
-    remark_search({ similar: params.require(:id) })
+    # remark_search({ similar: params.require(:id) })
+    @remarks = []
     render layout: "remark"
   end
 
