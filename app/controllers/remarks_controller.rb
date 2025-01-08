@@ -23,7 +23,7 @@ class RemarksController < ApplicationController
     if @remark.save
       flash.discard
       @remark.photos.each { |photo| Photos::CreateDerivativesJob.perform_later(photo) }
-      @remark.reindex(mode: :inline)
+      # @remark.reindex(mode: :inline)
       redirect_to :feed
     else
       flash[:error] = @remark.errors.full_messages.to_sentence
@@ -43,7 +43,7 @@ class RemarksController < ApplicationController
   end
 
   def reindex
-    @remark.reindex(mode: :inline)
+    # @remark.reindex(mode: :inline)
     redirect_to debug_remark_path(@remark)
   end
 
