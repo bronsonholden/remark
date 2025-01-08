@@ -4,6 +4,7 @@ module HasRemarkSearch
 
   included do
     def remark_search(params)
+      return
       item_count = 10
       @page = params.fetch(:page, 1)
       @search = params[:search]
