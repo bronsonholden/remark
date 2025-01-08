@@ -4,6 +4,6 @@ class Remarks::ReindexRecordJob < ApplicationJob
   def perform(remark)
     remark.reindex(mode: :inline)
     html = RemarksController.render(partial: "remarks/remark", locals: { remark: remark })
-    ActionCable.server.broadcast("remarks", { remark: html })
+    # ActionCable.server.broadcast("remarks", { remark: html })
   end
 end
