@@ -29,7 +29,7 @@
       <% if flash[:error] %>
         <div class="text-red-600 bg-red-200 p-4"><%= flash[:error] %></div>
       <% end %>
-      <%= render "application/header", search_enabled: local_assigns.fetch(:search_enabled, true) %>
+      <%= render "application/header", search_enabled: false && local_assigns.fetch(:search_enabled, true) %>
       <div class="container mx-auto max-w-3xl p-6">
         <%= yield %>
       </div>
