@@ -2,30 +2,12 @@
 
 Digital chatter at human scale and human pace.
 
-[App](https://remark.social)
-[Blog](https://remark.social/blog)
+# About
 
-## Setup
+Remark was born from a curiosity about Twitter- and Instagram-like apps,
+specifically how they surface content. I also wanted my own site to post
+thoughts, pictures, and eventually, blog posts.
 
-Install:
-
-* Heroku CLI
-* ImageMagick
-* Docker
-* FFMPEG
-
-Run:
-
-```
-bundle install
-```
-
-Drop `development.key` into `config/credentials`
-
-## Run locally
-
-```
-./bin/dev
-```
-
-Set env `SHRINE_FORCE_S3=1` to use S3 (and AWS Rekognition) in development mode
+I implemented text-based image searching, similar image surfacing, a
+simple comment/like system, conversion tracking (to positively reinforce
+posts—"remarks"—in search results).
