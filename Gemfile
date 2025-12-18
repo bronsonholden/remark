@@ -65,7 +65,7 @@ end
 
 gem "aws-sdk-comprehend", "~> 1.61"
 gem "aws-sdk-rekognition", "~> 1.68"
-gem "aws-sdk-s3", "~> 1.114"
+gem "aws-sdk-s3", "~> 1.208"
 gem "clearance", "~> 2.6"
 gem "connection_pool", "~> 2.2"
 gem "elasticsearch", "~> 7.4"
