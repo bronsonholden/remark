@@ -120,7 +120,7 @@ GEM
     connection_pool (2.3.0)
     content_disposition (1.0.0)
     crass (1.0.6)
-    date (3.3.3)
+    date (3.4.1)
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -184,12 +184,12 @@ GEM
     minitest (5.18.0)
     msgpack (1.6.1)
     multi_json (1.15.0)
-    net-imap (0.3.4)
+    net-imap (0.3.8)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.3.3)
       net-protocol
@@ -280,7 +280,7 @@ GEM
     tailwindcss-rails (2.0.25-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.1)
-    timeout (0.3.2)
+    timeout (0.4.3)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
